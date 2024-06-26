@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -66,12 +66,42 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "fade-right": {
+          "0%": { transform: "translateX(80px)", opacity: "0" },
+          "100%": { transform: "translateX(0px)", opacity: "1" },
+        },
+        "fade-left": {
+          "0%": { transform: "translateX(-80px)", opacity: "0" },
+          "100%": { transform: "translateX(0px)", opacity: "1" },
+        },
+        "fade-bottom": {
+          "0%": { transform: "translateY(-50px)", opacity: "0" },
+          "100%": { transform: "translateY(0px)", opacity: "1" },
+        },
+        "fade-top": {
+          "0%": { transform: "translateY(50px)", opacity: "0" },
+          "100%": { transform: "translateY(0px)", opacity: "1" },
+        },
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        "timer": {
+          "0%": { width: "100%" },
+          "100%": { width: "0%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-right": "fade-right .3s ease-in-out",
+        "fade-left": "fade-left .3s ease-in-out",
+        "fade-bottom": "fade-bottom .3s ease-in-out",
+        "fade-top": "fade-top .2s ease-in-out",
+        "fade-in": "fade-in .3s ease-in-out",
+        "timer": "timer 5s linear forwards",
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};
