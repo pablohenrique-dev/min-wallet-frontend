@@ -2,7 +2,13 @@ import { api, apiRoutes } from "@/services/api";
 import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { IAuthContext, LoginParams, LoginResponse, User } from "./auth-context";
+import {
+  IAuthContext,
+  LoginParams,
+  LoginResponse,
+  RegisterParams,
+  User,
+} from "./auth-context";
 
 const AuthContext = React.createContext<IAuthContext | null>(null);
 
@@ -16,6 +22,18 @@ export function AuthContextProvider({ children }: React.PropsWithChildren) {
   const [isUserLogged, setIsUserLogged] = React.useState<boolean | null>(null);
   const [user, setUser] = React.useState<User | null>(null);
   const navigate = useNavigate();
+
+  async function register(credentials: RegisterParams) {
+    try {
+      await api.post(apiRoutes.register, credentials);
+      await login({ email: credentials.email, password: credentials.password });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        throw new Error("Este e-mail já está sendo utilizado!");
+      }
+      throw new Error("Ocorreu um erro ao fazer o login. Tente novamente!");
+    }
+  }
 
   async function login(credentials: LoginParams) {
     try {
@@ -49,7 +67,7 @@ export function AuthContextProvider({ children }: React.PropsWithChildren) {
     const token = localStorage.getItem("token");
     async function getProfile() {
       try {
-        const { data } = await api.get<User>("/me");
+        const { data } = await api.get<User>(apiRoutes.profile);
         setIsUserLogged(true);
         setUser(data);
       } catch (error) {
@@ -64,7 +82,9 @@ export function AuthContextProvider({ children }: React.PropsWithChildren) {
   }, [navigate]);
 
   return (
-    <AuthContext.Provider value={{ isUserLogged, user, login, logout }}>
+    <AuthContext.Provider
+      value={{ isUserLogged, user, login, logout, register }}
+    >
       {children}
     </AuthContext.Provider>
   );
