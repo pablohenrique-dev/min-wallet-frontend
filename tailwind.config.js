@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        Epilogue: ["Epilogue", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -86,7 +89,7 @@ module.exports = {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
-        "timer": {
+        timer: {
           "0%": { width: "100%" },
           "100%": { width: "0%" },
         },
@@ -99,7 +102,7 @@ module.exports = {
         "fade-bottom": "fade-bottom .3s ease-in-out",
         "fade-top": "fade-top .2s ease-in-out",
         "fade-in": "fade-in .3s ease-in-out",
-        "timer": "timer 5s linear forwards",
+        timer: "timer 5s linear forwards",
       },
     },
   },

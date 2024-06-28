@@ -1,6 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .container {
+    @apply mx-auto max-w-[1216px] px-4;
+  }
+}
 
 @layer base {
   :root {
@@ -25,7 +33,7 @@
     --ring: 240 5.9% 10%;
     --radius: 0.3rem;
   }
- 
+
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
@@ -52,6 +60,9 @@
 @layer base {
   * {
     @apply border-border;
+  }
+  html {
+    font-family: "Epilogue", sans-serif;
   }
   body {
     @apply bg-background text-foreground;
