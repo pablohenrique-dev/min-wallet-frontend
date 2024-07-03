@@ -57,4 +57,5 @@ export const apiRoutes = {
   register: "/register",
   login: "/sessions",
   profile: "/me",
+  transactions: "/transactions",
 } as const;
