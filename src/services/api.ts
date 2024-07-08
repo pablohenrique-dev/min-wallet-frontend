@@ -49,6 +49,10 @@ api.interceptors.response.use(
         return Promise.reject(error);
       }
     }
+    if (error.response.status === 404) {
+      localStorage.removeItem("token");
+      return Promise.reject(error);
+    }
     return Promise.reject(error);
   },
 );
