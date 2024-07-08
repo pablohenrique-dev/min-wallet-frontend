@@ -10,6 +10,8 @@ export interface Transaction {
   created_at: string;
   updated_at: string;
   user_id: string;
+  date: Date;
+  type: "INCOME" | "EXPENSE";
 }
 
 export interface GetTransactionsResponse {
@@ -75,19 +77,3 @@ export function useGetTransactions({
 
   return { data, isFetching, isLoading, hasNextPage, fetchNextPage };
 }
-
-// export function useGetTransactions({
-//   page,
-//   order,
-//   title,
-//   from,
-//   to,
-// }: GetTransactionsParams) {
-//   const { data, isFetching, isLoading } = useQuery({
-//     queryKey: ["transactions", page, order, title, from, to],
-//     queryFn: () => getTransactions({ page, from, order, title, to }),
-//     staleTime: 1000 * 60,
-//   });
-
-//   return { ...data, isFetching, isLoading };
-// }
