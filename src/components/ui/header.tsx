@@ -16,9 +16,16 @@ import {
   DropdownMenuTrigger,
 } from "./dropdown-menu";
 import { Avatar, AvatarFallback } from "./avatar";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function Header() {
+  const queryClient = useQueryClient();
   const { user, logout } = useAuthContext();
+
+  function handleLogout() {
+    queryClient.clear();
+    logout();
+  }
 
   if (!user) return null;
   return (
@@ -34,14 +41,6 @@ export function Header() {
       </Button>
       <NavigationMenu>
         <NavigationMenuList className="gap-4">
-          <NavigationMenuItem>
-            {/* <NavigationMenuLink asChild>
-              <Button className="gap-2" variant="secondary">
-                Nova transação
-                <Plus size={16} />
-              </Button>
-            </NavigationMenuLink> */}
-          </NavigationMenuItem>
           <NavigationMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -67,7 +66,7 @@ export function Header() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={logout}
+                  onClick={handleLogout}
                   className="w-full justify-between gap-8 px-4"
                 >
                   Sair <LogOut size={16} />
