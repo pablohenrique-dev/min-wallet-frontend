@@ -67,4 +67,11 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  label {
+    margin: 0 !important;
+  }
 }
+
+
+
