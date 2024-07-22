@@ -17,6 +17,7 @@ import {
 } from "./dropdown-menu";
 import { Avatar, AvatarFallback } from "./avatar";
 import { useQueryClient } from "@tanstack/react-query";
+import { Logo } from "../icons/logo";
 
 export function Header() {
   const queryClient = useQueryClient();
@@ -36,7 +37,7 @@ export function Header() {
         variant="link"
       >
         <Link to="/" className="px-0">
-          MinWallet
+          <Logo />
         </Link>
       </Button>
       <NavigationMenu>
@@ -52,7 +53,7 @@ export function Header() {
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent className="shadow-xl" align="end">
                 <NavigationMenuLink
                   asChild
                   className={navigationMenuTriggerStyle()}
