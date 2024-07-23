@@ -2,6 +2,7 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function SearchBar() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,14 +29,15 @@ export function SearchBar() {
   return (
     <form
       onSubmit={searchTransactionsByTitle}
-      className="mb-6 w-full max-w-[320px]"
+      className="flex h-fit w-full sm:max-w-[320px] items-center"
     >
-      <div className="relative">
-        <Search
-          size={18}
-          color="gray"
-          className="absolute bottom-0 right-3 top-0 m-auto"
-        />
+      <div className="relative w-full">
+        <Button
+          variant="ghost"
+          className="absolute bottom-0 right-0 top-0 m-auto"
+        >
+          <Search size={18} color="gray" />
+        </Button>
         <Input
           placeholder="Pesquisar por título..."
           className=""
