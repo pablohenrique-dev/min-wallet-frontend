@@ -32,6 +32,7 @@ import dayjs from "dayjs";
 import { Calendar } from "@/components/ui/calendar";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { formatToBRL } from "@/utils/price-formatter";
+import { useSearchParams } from "react-router-dom";
 
 const transactionFormSchema = z.object({
   title: z
@@ -61,6 +62,7 @@ export function CreateTransactionDialog() {
   });
 
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const [, setSearchParams] = useSearchParams();
 
   const { mutate } = useCreateTransaction();
 
@@ -68,6 +70,7 @@ export function CreateTransactionDialog() {
     mutate(values);
     form.reset();
     setIsDialogOpen(false);
+    setSearchParams(new URLSearchParams());
   }
 
   return (
