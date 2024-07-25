@@ -62,4 +62,6 @@ export const apiRoutes = {
   login: "/sessions",
   profile: "/me",
   transactions: "/transactions",
+  summary: "/transactions/summary",
+  updateProfile: "/profile",
 } as const;

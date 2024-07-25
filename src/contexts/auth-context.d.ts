@@ -27,4 +27,5 @@ export interface IAuthContext {
   login: (credentials: LoginParams) => Promise<string>;
   logout: () => void;
   register: (credentials: RegisterParams) => Promise<void>;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
 }

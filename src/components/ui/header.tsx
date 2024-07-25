@@ -1,23 +1,23 @@
 import { Link } from "react-router-dom";
-import { UserCog, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { useAuthContext } from "@/contexts/auth";
 import { Button } from "./button";
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
-  navigationMenuTriggerStyle,
 } from "./navigation-menu";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./dropdown-menu";
 import { Avatar, AvatarFallback } from "./avatar";
 import { useQueryClient } from "@tanstack/react-query";
 import { Logo } from "../icons/logo";
+import { UpdateUserDialog } from "./update-user-dialog";
 
 export function Header() {
   const queryClient = useQueryClient();
@@ -28,9 +28,15 @@ export function Header() {
     logout();
   }
 
+  function getFirstTwoWords(text: string) {
+    const words = text.split(" ");
+    const firstTwoWords = words.slice(0, 2);
+    return firstTwoWords.join(" ");
+  }
+
   if (!user) return null;
   return (
-    <header className="container mt-6 flex items-center justify-between border-b border-zinc-200 pb-4">
+    <header className="container mt-6 flex animate-fade-bottom items-center justify-between border-b border-zinc-200 pb-4">
       <Button
         asChild
         className="mb-[-6px] px-0 text-xl font-semibold"
@@ -45,7 +51,14 @@ export function Header() {
           <NavigationMenuItem>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="rounded-full">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="flex w-fit items-center gap-4 pl-4 hover:bg-transparent"
+                >
+                  <p className="hidden sm:block">
+                    {getFirstTwoWords(user.name)}
+                  </p>
                   <Avatar>
                     <AvatarFallback className="select-none bg-black text-white">
                       {user.name.slice(0, 2).toUpperCase()}
@@ -53,16 +66,18 @@ export function Header() {
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="shadow-xl" align="end">
-                <NavigationMenuLink
-                  asChild
-                  className={navigationMenuTriggerStyle()}
-                >
-                  <Link to="/account" className="w-full justify-between gap-8">
-                    Minha conta
-                    <UserCog size={16} />
-                  </Link>
-                </NavigationMenuLink>
+              <DropdownMenuContent className="w-fit shadow-xl" align="end">
+                <DropdownMenuLabel className="ml-2">
+                  Minha conta
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <p className="block px-4 py-3 text-sm sm:hidden">
+                  {getFirstTwoWords(user.name)}
+                </p>
+                <DropdownMenuSeparator className="block sm:hidden" />
+                <p className="px-4 py-3 text-sm">{user.email}</p>
+                <DropdownMenuSeparator />
+                <UpdateUserDialog />
                 <DropdownMenuSeparator />
                 <Button
                   variant="ghost"

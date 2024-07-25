@@ -83,7 +83,7 @@ export function AuthContextProvider({ children }: React.PropsWithChildren) {
 
   return (
     <AuthContext.Provider
-      value={{ isUserLogged, user, login, logout, register }}
+      value={{ isUserLogged, user, login, logout, register, setUser }}
     >
       {children}
     </AuthContext.Provider>
