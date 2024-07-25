@@ -77,7 +77,7 @@ export function CreateTransactionDialog() {
     <>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
-          <Button className="gap-2" variant="default">
+          <Button className="w-full gap-2 sm:w-fit" variant="default">
             Nova transação
             <Plus size={16} />
           </Button>

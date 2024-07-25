@@ -1,5 +1,6 @@
 import { api, apiRoutes } from "@/services/api";
 import { queryKeys } from "@/tanstack-query/constants";
+import { addParamsToUrl } from "@/utils/add-search-params-to-url";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 export interface Transaction {
@@ -30,29 +31,11 @@ interface GetTransactionsParams {
   to?: string;
 }
 
-function addParamsToUrl(baseUrl: string, params: GetTransactionsParams) {
-  let url = baseUrl;
-  const queryStrings: string[] = [];
-
-  for (const key in params) {
-    if (params[key as keyof GetTransactionsParams] !== undefined) {
-      queryStrings.push(
-        `${encodeURIComponent(key)}=${encodeURIComponent(
-          params[key as keyof GetTransactionsParams]!.toString(),
-        )}`,
-      );
-    }
-  }
-
-  if (queryStrings.length > 0) {
-    url += "?" + queryStrings.join("&");
-  }
-
-  return url;
-}
-
 async function getTransactions(params: GetTransactionsParams) {
-  const url = addParamsToUrl(apiRoutes.transactions, params);
+  const url = addParamsToUrl<GetTransactionsParams>(
+    apiRoutes.transactions,
+    params,
+  );
 
   const { data } = await api.get<GetTransactionsResponse>(url);
   return data;
