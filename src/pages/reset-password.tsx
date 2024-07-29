@@ -14,10 +14,11 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { api } from "@/services/api";
 import { toast } from "sonner";
+import { useAuthContext } from "@/contexts/auth";
 
 const resetPasswordFormSchema = z.object({
   password: z
@@ -28,6 +29,8 @@ const resetPasswordFormSchema = z.object({
 type resetPasswordFormType = z.infer<typeof resetPasswordFormSchema>;
 
 export function ResetPasswordPage() {
+  const { isUserLogged } = useAuthContext();
+
   const form = useForm<resetPasswordFormType>({
     resolver: zodResolver(resetPasswordFormSchema),
     defaultValues: {
@@ -89,6 +92,7 @@ export function ResetPasswordPage() {
     };
   }, []);
 
+  if (isUserLogged) return <Navigate to="/" />;
   return (
     <AuthLayout>
       <Form {...form}>

@@ -14,8 +14,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import axios from "axios";
 import { api } from "@/services/api";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { toast } from "sonner";
+import { useAuthContext } from "@/contexts/auth";
 
 const forgotPasswordFormSchema = z.object({
   email: z
@@ -28,6 +29,8 @@ const forgotPasswordFormSchema = z.object({
 type forgotPasswordFormType = z.infer<typeof forgotPasswordFormSchema>;
 
 export function ForgotPasswordPage() {
+  const { isUserLogged } = useAuthContext();
+
   const form = useForm<forgotPasswordFormType>({
     resolver: zodResolver(forgotPasswordFormSchema),
     defaultValues: {
@@ -38,17 +41,23 @@ export function ForgotPasswordPage() {
   async function onSubmit(credentials: forgotPasswordFormType) {
     try {
       await api.post("/forgot-password", credentials);
-      toast.success("Solicitação enviada com sucesso! verifique o seu e-mail!", { className: "border-l-4 border-green-500" });
+      toast.success(
+        "Solicitação enviada com sucesso! verifique o seu e-mail!",
+        { className: "border-l-4 border-green-500" },
+      );
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error("E-mail fornecido não existe!");
         return null;
       }
-      toast.error("Ocorreu um erro ao solicitar a mudança de senha!", { className: "border-l-4 border-red-500" });
+      toast.error("Ocorreu um erro ao solicitar a mudança de senha!", {
+        className: "border-l-4 border-red-500",
+      });
       return null;
     }
   }
 
+  if (isUserLogged) return <Navigate to="/" />;
   return (
     <AuthLayout>
       <Form {...form}>
