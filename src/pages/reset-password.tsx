@@ -19,6 +19,7 @@ import axios from "axios";
 import { api } from "@/services/api";
 import { toast } from "sonner";
 import { useAuthContext } from "@/contexts/auth";
+import { Head } from "@/components/seo/head";
 
 const resetPasswordFormSchema = z.object({
   password: z
@@ -95,6 +96,7 @@ export function ResetPasswordPage() {
   if (isUserLogged) return <Navigate to="/" />;
   return (
     <AuthLayout>
+      <Head title="Redefinir senha" description="Redefina a sua senha" />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

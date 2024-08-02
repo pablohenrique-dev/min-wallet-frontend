@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { useAuthContext } from "@/contexts/auth";
 import { AuthLayout } from "@/components/layouts/auth";
 import { toast } from "sonner";
+import { Head } from "@/components/seo/head";
 
 const registerFormSchema = z.object({
   name: z
@@ -60,6 +61,7 @@ export function RegisterPage() {
   if (isUserLogged) return <Navigate to="/" />;
   return (
     <AuthLayout>
+      <Head title="Criar conta" description="Crie sua conta" />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

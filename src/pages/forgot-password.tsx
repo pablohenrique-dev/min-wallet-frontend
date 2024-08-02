@@ -17,6 +17,7 @@ import { api } from "@/services/api";
 import { Link, Navigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAuthContext } from "@/contexts/auth";
+import { Head } from "@/components/seo/head";
 
 const forgotPasswordFormSchema = z.object({
   email: z
@@ -60,6 +61,10 @@ export function ForgotPasswordPage() {
   if (isUserLogged) return <Navigate to="/" />;
   return (
     <AuthLayout>
+      <Head
+        title="Esqueci minha senha"
+        description="Solicite a troca de senha"
+      />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

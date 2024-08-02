@@ -10,7 +10,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
       <div className="mx-6 my-32 flex animate-fade-left flex-col items-center justify-center sm:mx-0">
         {children}
       </div>
-      <div className="hidden w-full animate-fade-in bg-[url('bg-image-black-pattern.jpg')] bg-cover md:block"></div>
+      <div className="hidden w-full animate-fade-in bg-[url('@/assets/bg-image-black-pattern.jpg')] bg-cover md:block"></div>
     </section>
   );
 }

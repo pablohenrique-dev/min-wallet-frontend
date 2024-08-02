@@ -10,6 +10,7 @@ import { Summary } from "./components/summary";
 import { useCreateDateInterval } from "./hooks/use-create-date-interval";
 import { Loading } from "@/components/ui/loading";
 import { TrendingDown, TrendingUp, WalletMinimal } from "lucide-react";
+import { Head } from "@/components/seo/head";
 
 export function HomePage() {
   const [searchParams] = useSearchParams();
@@ -43,6 +44,10 @@ export function HomePage() {
 
   return (
     <section className="container my-8 animate-fade-in">
+      <Head
+        title="MinWallet"
+        description="Gerencie sua vida financeira de forma fácil com o minwallet."
+      />
       <Summary>
         <CardTransaction value={summary?.totalIncome}>
           <TrendingUp size={20} color="green" />

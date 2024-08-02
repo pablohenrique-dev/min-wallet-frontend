@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { useAuthContext } from "@/contexts/auth";
 import { toast } from "sonner";
 import { AuthLayout } from "@/components/layouts/auth";
+import { Head } from "@/components/seo/head";
 
 const loginFormSchema = z.object({
   email: z
@@ -55,6 +56,7 @@ export function LoginPage() {
   if (isUserLogged) return <Navigate to="/" />;
   return (
     <AuthLayout>
+      <Head title="Entrar" description="Faça login em sua conta" />
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
