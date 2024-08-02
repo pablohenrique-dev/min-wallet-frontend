@@ -13,6 +13,7 @@ interface GetSummaryResponse {
 interface GetSummaryParams {
   from?: string;
   to?: string;
+  title?: string;
 }
 
 async function getSummary(params: GetSummaryParams) {
@@ -21,10 +22,10 @@ async function getSummary(params: GetSummaryParams) {
   return data;
 }
 
-export function useGetSummary({ from, to }: GetSummaryParams) {
+export function useGetSummary({ from, to,  title }: GetSummaryParams) {
   const { data, isLoading, isFetching } = useQuery({
-    queryKey: [queryKeys.summary, from, to],
-    queryFn: () => getSummary({ from, to }),
+    queryKey: [queryKeys.summary, from, to, title],
+    queryFn: () => getSummary({ from, to, title }),
   });
 
   return { data, isLoading, isFetching };

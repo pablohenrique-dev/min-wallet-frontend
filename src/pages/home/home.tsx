@@ -22,6 +22,7 @@ export function HomePage() {
   const { data: summary } = useGetSummary({
     from,
     to,
+    title: searchParams.get("title") || undefined,
   });
 
   const { data, hasNextPage, fetchNextPage, isFetching } = useGetTransactions({
