@@ -47,11 +47,8 @@ export function UpdateUserForm({ setIsDialogOpen }: UpdateUserFormProps) {
 
   async function onSubmit(values: UpdateUserFormType) {
     try {
-      const { data } = await api.patch<{ user: User }>(
-        apiRoutes.updateProfile,
-        values,
-      );
-      setUser(data.user);
+      const { data } = await api.patch<User>(apiRoutes.updateProfile, values);
+      setUser(data);
       setIsDialogOpen(false);
       toast.success("Atualização concluída com sucesso!", {
         className: "border-l-4 border-green-500",
