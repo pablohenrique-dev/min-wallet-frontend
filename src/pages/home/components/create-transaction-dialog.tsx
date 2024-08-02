@@ -173,7 +173,7 @@ export function CreateTransactionDialog() {
               name="date"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel className="text-base">Título</FormLabel>
+                  <FormLabel className="text-base">Data</FormLabel>
                   <Popover>
                     <PopoverTrigger asChild>
                       <Button
