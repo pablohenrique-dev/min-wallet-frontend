@@ -1,7 +1,8 @@
 import axios from "axios";
+import { env } from "@/env";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3333",
+  baseURL: env.VITE_API_URL,
   headers: {
     "Content-Type": "application/json; charset=utf-8",
     "Access-Control-Allow-Origin": "*",
@@ -31,7 +32,7 @@ api.interceptors.response.use(
 
       try {
         const response = await axios.patch<{ token: string }>(
-          "http://localhost:3333/token/refresh",
+          `${env.VITE_API_URL}/token/refresh`,
           null,
           {
             withCredentials: true,
