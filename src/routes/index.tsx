@@ -3,7 +3,7 @@ import { RegisterPage } from "@/pages/register";
 import { LoginPage } from "@/pages/login";
 import { HomePage } from "@/pages/home/home";
 import { ProtectedRoute } from "@/utils/protected-route";
-import { ForgotPasswordPage } from "@/pages/forgot-password";
+import { ForgotPasswordPage } from "@/pages/forgot-password/forgot-password";
 import { ResetPasswordPage } from "@/pages/reset-password";
 
 const myRoutes = [

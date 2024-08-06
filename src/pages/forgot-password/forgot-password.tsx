@@ -1,3 +1,4 @@
+import React from "react";
 import { AuthLayout } from "@/components/layouts/auth";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,19 +19,18 @@ import { Link, Navigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useAuthContext } from "@/contexts/auth";
 import { Head } from "@/components/seo/head";
+import { ResendRequestTimer } from "./components/resend-request-timer";
 
 const forgotPasswordFormSchema = z.object({
-  email: z
-    .string()
-    .email({ message: "Formato de email inválido!" })
-    .min(6, { message: "Este Campo é obrigatório!" })
-    .trim(),
+  email: z.string().email({ message: "Formato de email inválido!" }).trim(),
 });
 
-type forgotPasswordFormType = z.infer<typeof forgotPasswordFormSchema>;
+export type forgotPasswordFormType = z.infer<typeof forgotPasswordFormSchema>;
 
 export function ForgotPasswordPage() {
   const { isUserLogged } = useAuthContext();
+
+  const [isBtnDisabled, setIsBtnDisabled] = React.useState(false);
 
   const form = useForm<forgotPasswordFormType>({
     resolver: zodResolver(forgotPasswordFormSchema),
@@ -46,6 +46,7 @@ export function ForgotPasswordPage() {
         "Solicitação enviada com sucesso! verifique o seu e-mail!",
         { className: "border-l-4 border-green-500" },
       );
+      setIsBtnDisabled(true);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         toast.error("E-mail fornecido não existe!");
@@ -57,6 +58,21 @@ export function ForgotPasswordPage() {
       return null;
     }
   }
+
+  const TIMER_INTERVAL_IN_MILLISECONDS = 1000 * 60;
+
+  React.useEffect(() => {
+    let enableBtnTimeout: NodeJS.Timeout;
+    if (isBtnDisabled) {
+      enableBtnTimeout = setTimeout(
+        () => setIsBtnDisabled(false),
+        TIMER_INTERVAL_IN_MILLISECONDS,
+      );
+    }
+    return () => {
+      clearTimeout(enableBtnTimeout);
+    };
+  }, [isBtnDisabled, TIMER_INTERVAL_IN_MILLISECONDS]);
 
   if (isUserLogged) return <Navigate to="/" />;
   return (
@@ -100,10 +116,16 @@ export function ForgotPasswordPage() {
           <Button
             className="w-full py-6 text-base disabled:cursor-not-allowed disabled:opacity-70"
             type="submit"
-            disabled={form.formState.isSubmitting}
+            disabled={form.formState.isSubmitting || isBtnDisabled}
           >
             {form.formState.isSubmitting ? "Carregando..." : "Enviar"}
           </Button>
+
+          {isBtnDisabled && (
+            <ResendRequestTimer
+              timerIntervalInMilliseconds={TIMER_INTERVAL_IN_MILLISECONDS}
+            />
+          )}
 
           <Button
             asChild
