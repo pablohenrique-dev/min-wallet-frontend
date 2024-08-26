@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { LogOut } from "lucide-react";
 import { useAuthContext } from "@/contexts/auth";
 import { Button } from "./button";
@@ -23,6 +23,10 @@ export function Header() {
   const queryClient = useQueryClient();
   const { user, logout } = useAuthContext();
 
+  const [searchParams] = useSearchParams();
+
+  const emailSearchParam = searchParams.get("email");
+
   function handleLogout() {
     queryClient.clear();
     logout();
@@ -34,7 +38,7 @@ export function Header() {
     return firstTwoWords.join(" ");
   }
 
-  if (!user) return null;
+  if (!user || (user && emailSearchParam)) return null;
   return (
     <header className="container mt-6 flex animate-fade-bottom items-center justify-between border-b border-zinc-200 pb-4">
       <Button
