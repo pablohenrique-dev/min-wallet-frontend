@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import axios from "axios";
 import { api } from "@/services/api";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 import { useAuthContext } from "@/contexts/auth";
 import { Head } from "@/components/seo/head";
@@ -30,12 +30,16 @@ export type forgotPasswordFormType = z.infer<typeof forgotPasswordFormSchema>;
 export function ForgotPasswordPage() {
   const { isUserLogged } = useAuthContext();
 
+  const [searchParams] = useSearchParams();
+
+  const emailSearchParam = searchParams.get("email");
+
   const [isBtnDisabled, setIsBtnDisabled] = React.useState(false);
 
   const form = useForm<forgotPasswordFormType>({
     resolver: zodResolver(forgotPasswordFormSchema),
     defaultValues: {
-      email: "",
+      email: emailSearchParam || "",
     },
   });
 
@@ -74,11 +78,11 @@ export function ForgotPasswordPage() {
     };
   }, [isBtnDisabled, TIMER_INTERVAL_IN_MILLISECONDS]);
 
-  if (isUserLogged) return <Navigate to="/" />;
+  if (isUserLogged && !emailSearchParam) return <Navigate to="/" />;
   return (
     <AuthLayout>
       <Head
-        title="Esqueci minha senha"
+        title="Alterar minha senha"
         description="Solicite a troca de senha"
       />
       <Form {...form}>
@@ -86,7 +90,7 @@ export function ForgotPasswordPage() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="mx-auto w-full max-w-[384px] space-y-5"
         >
-          <h2 className="text-4xl font-semibold">Esqueceu a senha?</h2>
+          <h2 className="text-4xl font-semibold">Alterar minha senha</h2>
           <p className="opacity-85">
             Ao preencher o campo abaixo e clicar no botão enviar, será enviado
             para o seu e-mail um link para redefinição de senha.

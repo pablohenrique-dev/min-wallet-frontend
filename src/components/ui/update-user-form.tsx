@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { api, apiRoutes } from "@/services/api";
 import { User } from "@/contexts/auth-context";
 import { useAuthContext } from "@/contexts/auth";
+import { useNavigate } from "react-router-dom";
 
 const updateUserFormSchema = z.object({
   name: z
@@ -36,6 +37,7 @@ interface UpdateUserFormProps {
 
 export function UpdateUserForm({ setIsDialogOpen }: UpdateUserFormProps) {
   const { user, setUser } = useAuthContext();
+  const navigate = useNavigate();
 
   const form = useForm<UpdateUserFormType>({
     resolver: zodResolver(updateUserFormSchema),
@@ -58,6 +60,15 @@ export function UpdateUserForm({ setIsDialogOpen }: UpdateUserFormProps) {
         "Ocorreu um erro ao atualizar suas informações, tente novamente!",
         { className: "border-l-4 border-red-500" },
       );
+    }
+  }
+
+  function handleChangePassword() {
+    const confirmChangePassword = confirm(
+      "Tem certeza que quer alterar a senha?",
+    );
+    if (confirmChangePassword) {
+      navigate(`/forgot-password?email=${user?.email}`);
     }
   }
 
@@ -112,6 +123,13 @@ export function UpdateUserForm({ setIsDialogOpen }: UpdateUserFormProps) {
           disabled={form.formState.isSubmitting}
         >
           {form.formState.isSubmitting ? "Carregando..." : "Atualizar"}
+        </Button>
+        <Button
+          className="w-full py-6 text-base disabled:cursor-not-allowed disabled:opacity-70"
+          variant={"ghost"}
+          onClick={handleChangePassword}
+        >
+          Alterar senha
         </Button>
       </form>
     </Form>
