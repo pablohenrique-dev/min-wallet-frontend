@@ -1,30 +1,42 @@
-# React + TypeScript + Vite
+# MinWallet
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descrição
 
-Currently, two official plugins are available:
+O MinWallet é um app que permite aos usuários cadastrar, atualizar e excluir todos os seus gastos e ganhos de forma que ao final do mês, o mesmo possa ter controle sobre sua vida financeira. Acesse o repositório back-end [aqui](https://github.com/pablohenrique-dev/min-wallet-api).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologias utilizadas
 
-## Expanding the ESLint configuration
+- React
+- TypeScript
+- shadcn/ui
+- TanStack Query
+- React Hook Form
+- Zod
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Rodando o projeto localmente
 
-- Configure the top-level `parserOptions` property like this:
+#### 1º - Abra o seu terminal e clone o projeto com o comando abaixo:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+git clone git@github.com:pablohenrique-dev/min-wallet-frontend.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+#### 2º - Navege para a pasta do projeto:
+
+```bash
+cd min-wallet-frontend/
+```
+
+#### 3º - Crie um arquivo .env.local e cole as informações abaixo:
+
+```js
+VITE_API_URL="http://localhost:3333"
+```
+
+**OBS**: Essa url é a da API. [Clique aqui](https://github.com/pablohenrique-dev/min-wallet-api) para ter acesso ao repositório e aos passos para rodar API  localmente. 
+
+#### 4º - No seu terminal, execute o comando abaixo:
+
+```bash
+npm run wrap
+```
